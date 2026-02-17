@@ -1,0 +1,52 @@
+/* navbar.component.css */
+
+.navbar {
+  /* Using a backdrop filter for a premium glass effect */
+  background-color: #0f172a; 
+  backdrop-filter: blur(10px);
+ 
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Underline animation for desktop */
+@media (min-width: 992px) {
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #00a8ff;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+}
+
+/* Sidebar styling */
+.offcanvas {
+ visibility: visible !important;
+  background-color: #0f172a !important; /* Matches your dark theme */
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-close:focus {
+  box-shadow: none; /* Removes the ugly focus ring */
+}
+
+.navbar-toggler {
+  color: #fff !important;
+}
+
+/* Smooth transition for the sidebar links */
+.offcanvas .nav-link {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #fff !important;
+}

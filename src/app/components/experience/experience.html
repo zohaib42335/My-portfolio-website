@@ -1,0 +1,38 @@
+<section id="experience" class="py-5 overflow-hidden">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-primary">Professional Experience</h2>
+      <div class="header-line mx-auto"></div>
+    </div>
+
+    <div class="timeline-container mx-auto" style="max-width: 800px;">
+      @for (exp of experiences(); track exp.company; let i = $index) {
+        <div #timelineItem 
+             class="timeline-item d-flex gap-4 mb-5"
+             [style.transition-delay]="(i * 150) + 'ms'"> <div class="timeline-indicator d-flex flex-column align-items-center">
+            <div class="dot"></div>
+            <div class="line"></div>
+          </div>
+
+          <div class="timeline-content pb-4">
+              <h4 class="fw-bold mb-1 ">{{ exp.company }}</h4>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-primary fw-medium">{{ exp.role }}</span>
+              <span class="text-muted small px-3 py-1 bg-white rounded-pill shadow-sm border">
+                {{ exp.period }}
+              </span>
+            </div>
+            <p class="text-secondary description-text">
+              {{ exp.description }}
+            </p>
+            <div class="d-flex gap-2 flex-wrap mt-3">
+              @for (skill of exp.skills; track skill) {
+                <span class="badge-skill">{{ skill }}</span>
+              }
+            </div>
+             </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+
+
+.skill-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px 20px;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px); /* Start slightly lower */
+}
+
+/* Intersection Observer Class */
+.skill-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-card i {
+  font-size: 3.5rem; 
+  transition: transform 1.5s ease;
+}
+
+.skill-card:hover {
+  border-color: #00a8ff;
+  box-shadow: 0 10px 20px rgba(0, 168, 255, 0.1) !important;
+  transform: translateY(-10px);
+}
+
+.skill-card:hover i {
+  transform: scale(1.1);
+}
+
+.skill-card p {
+  color: #333;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}

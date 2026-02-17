@@ -1,0 +1,34 @@
+<section id="projects" class="py-5 mt-5 ">
+  <div class="container">
+    <h2 class=" fw-bold fs-1 text-center mb-2 text-primary">PROJECTS</h2>
+     <div class="header-line mx-auto mb-5"></div>
+    @for (project of projects(); track project.title; let i = $index) {
+      <div #projectRow class="row align-items-center mb-5 project-animate-wrapper" 
+           [ngClass]="{'flex-row-reverse': i % 2 !== 0,'from-left': i % 2 === 0, 'from-right': i % 2 !== 0}">
+        
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="project-img-container shadow-sm">
+            <img [src]="project.image" [alt]="project.title" class="img-fluid rounded-4">
+          </div>
+        </div>
+
+        <div class="col-lg-6 px-lg-5" [ngClass]="{'text-end': i % 2 !== 0}">
+          <h2 class="fw-bold mb-0 ">{{ project.title }}</h2>
+          <p class=" text-primary fw-medium mb-1">{{ project.category }}</p>
+          <p class="small mb-3">{{ project.date }}</p>
+          
+          <p class=" description-text mb-4">
+            {{ project.description }}
+          </p>
+
+          <div class="d-flex gap-3" [ngClass]="{'justify-content-end': i % 2 !== 0}">
+            <a [href]="project.links.github" class="project-link"><i class="bi bi-github"></i></a>
+            <a [href]="project.links.live" class="project-link"><i class="bi bi-link-45deg"></i></a>
+            
+          </div>
+        </div>
+
+      </div>
+    }
+  </div>
+</section>

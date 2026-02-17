@@ -1,0 +1,32 @@
+
+/* .about-title-wrapper {
+  position: relative;
+  display: inline-block;
+} */
+
+
+.description-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #9b9797 !important;
+  max-width: 600px;
+}
+
+.btn-primary-custom {
+  background-color: #fff;
+  border: none;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: #0084b4;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 172, 238, 0.2);
+}
+
+/* Ensure the image container doesn't get too large */
+.about-illustration img {
+  max-width: 100%;
+  height: auto;
+}
