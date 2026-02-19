@@ -16,7 +16,7 @@ export class Skills implements AfterViewInit {
     { name: 'HTML5', icon: 'devicon-html5-plain colored' },
     { name: 'CSS3', icon: 'devicon-css3-plain colored' },
     { name: 'Bootstrap', icon: 'devicon-bootstrap-plain colored' },
-    { name: 'GitHub', icon: 'devicon-github-original colored' }
+    { name: 'GitHub', icon: 'devicon-github-original white-icon' }
   ]);
 
   ngAfterViewInit() {

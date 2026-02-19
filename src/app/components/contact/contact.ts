@@ -2,7 +2,7 @@ import { trigger, transition, query, style, animate, stagger } from '@angular/an
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-
+import emailjs from '@emailjs/browser';
 @Component({
   selector: 'app-contact',
   imports: [CommonModule, ReactiveFormsModule],
@@ -29,35 +29,47 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
   styleUrl: './contact.css',
 })
 export class Contact {
-contactForm: FormGroup;
+  contactForm: FormGroup;
   isSubmitting = false;
   submitSuccess = false;
 
   constructor(private fb: FormBuilder) {
-    // Initialize the form with validation rules
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       subject: ['', Validators.required],
       message: ['', [Validators.required, Validators.minLength(10)]]
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
-      
-      // Simulating an API call (e.g., to EmailJS or Firebase)
-      console.log('Form Data:', this.contactForm.value);
-      
-      setTimeout(() => {
-        this.isSubmitting = false;
+
+      try {
+        // 2. The real EmailJS call
+        await emailjs.send(
+          'service_5iujlyx',   
+          'template_rirtl4f',  
+          {
+            from_name: this.contactForm.value.name,
+            from_email: this.contactForm.value.email,
+            subject: this.contactForm.value.subject,
+            message: this.contactForm.value.message,
+          },
+          'DKEHUlXEL2guqKK4p'    
+        );
+
         this.submitSuccess = true;
         this.contactForm.reset();
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => this.submitSuccess = false, 5000);
-      }, 2000);
+      } catch (error) {
+        console.error('FAILED...', error);
+        alert('Something went wrong. Please try again later.');
+      } finally {
+        this.isSubmitting = false;
+        setTimeout(() => (this.submitSuccess = false), 5000);
+      }
     }
   }
+
 }
