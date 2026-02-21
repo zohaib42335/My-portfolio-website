@@ -5,7 +5,32 @@
      transform: translateY(-10px); 
     }
 
-    
+  /* Custom spacing between project rows */
+.project-card-spacing {
+  margin-bottom: 8rem; /* Significant space like in the image */
+}
+
+/* On mobile, we reduce it slightly but keep it distinct */
+@media (max-width: 991px) {
+  .project-card-spacing {
+    margin-bottom: 6rem; 
+  }
+  
+  /* Ensure text doesn't feel cramped on mobile */
+  .px-lg-5 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  /* Force left alignment on mobile for better readability */
+  .text-lg-end {
+    text-align: left !important;
+  }
+  
+  .justify-content-lg-end {
+    justify-content: flex-start !important;
+  }
+}  
 
 .project-img-container {
   width: 100%;
@@ -15,15 +40,18 @@
   border-radius: 20px;
   transition: transform 0.3s ease;
 }
+.description-text {
+  line-height: 1.8;
+  color: #a0a0a0; /* Matching the muted gray in your screenshots */
+}
+
 .project-img-container img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;    /* Important: Crops the image to fill the box without stretching */
-  object-position: top; /* Shows the top of the website mockup */
   transition: transform 0.5s ease;
 }
+
 .project-img-container:hover img {
-  transform: scale(1.05); /* Subtle zoom effect */
+  transform: scale(1.03);
 }
 
 .project-img-container:hover {
@@ -77,6 +105,9 @@
 /* Add a subtle divider between projects */
 .project-row:not(:last-child) {
   border-bottom: 1px solid #dee2e6;
+}
+.project-animate-wrapper{
+  transform: translateZ(0);
 }
 /* Initial State: Projects on the left (even index) start further left */
 .project-animate-wrapper.from-left {
