@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, signal, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, signal, viewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -7,46 +7,77 @@ import { AfterViewInit, Component, ElementRef, signal, viewChildren } from '@ang
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
-export class Projects implements AfterViewInit {
+export class Projects implements AfterViewInit,OnDestroy {
   projectRows = viewChildren<ElementRef>('projectRow');
- projects = signal([
+
+  /* ── Data ── */
+  projects = signal([
     {
       title: 'E-Commerce Profit Tracker',
       category: 'Personal Project',
       date: 'January 2026',
-      description: 'Business analytics dashboard for e-commerce sellers to calculate profitability metrics....',
+      description:
+        'Business analytics dashboard for e-commerce sellers to calculate profitability metrics, track ROAS, and monitor inventory costs in real time.',
       image: 'assets/images/project_1.jpg',
-      links: { github: 'https://github.com/zohaib42335/profit-tracker', live: 'https://profit-tracker-app.netlify.app/' }
+      tags: ['Angular', 'Chart.js', 'Typescript', 'Bootstrap 5'],
+      links: {
+        github: 'https://github.com/zohaib42335/profit-tracker',
+        live:   'https://profit-tracker-app.netlify.app/'
+      }
     },
     {
       title: 'Freelancer Dashboard',
       category: 'Personal Project',
       date: 'January 2026',
-      description: 'Productivity and analytics dashboard for freelancers....',
+      description:
+        'Productivity and analytics dashboard for freelancers to manage clients, track invoices, visualize earnings, and measure project timelines.',
       image: 'assets/images/project_2.jpg',
-      links: { github: 'https://github.com/zohaib42335/freelance-admin-dashboard', live: 'https://feelanceos-dashboard.netlify.app' }
+      tags: ['Angular', 'Bootstrap 5', 'TypeScript', 'Chart.js'],
+      links: {
+        github: 'https://github.com/zohaib42335/freelance-admin-dashboard',
+        live:   'https://feelanceos-dashboard.netlify.app'
+      }
     },
     {
       title: 'Resume Builder',
-      category: 'Personal',
+      category: 'Personal Project',
       date: 'November 2025',
-      description: 'Real-time resume builder with live preview functionality....',
+      description:
+        'Real-time resume builder with live preview functionality, drag-and-drop sections, multiple export formats, and customizable themes.',
       image: 'assets/images/project_3.jpg',
-      links: { github: 'https://github.com/zohaib42335/resume-builder', live: 'https://smart-resume-builder-web.netlify.app/' }
-    },
-
+      tags: ['Angular', 'Typescript', 'Bootstrap'],
+      links: {
+        github: 'https://github.com/zohaib42335/resume-builder',
+        live:   'https://smart-resume-builder-web.netlify.app/'
+      }
+    }
   ]);
 
-      ngAfterViewInit() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, { threshold: 0.2 });
+  /* ── Scroll Observer ── */
+  private observer!: IntersectionObserver;
 
-    this.projectRows().forEach(row => observer.observe(row.nativeElement));
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = Number(el.dataset['delay'] ?? 0);
+            setTimeout(() => el.classList.add('is-visible'), delay);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    this.projectRows().forEach((row, i) => {
+      const el = row.nativeElement as HTMLElement;
+      el.dataset['delay'] = String(i * 80);
+      this.observer.observe(el);
+    });
   }
 
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 }

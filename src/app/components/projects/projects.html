@@ -1,34 +1,135 @@
-<section id="projects" class="py-5 mt-5 ">
-  <div class="container">
-    <h2 class=" fw-bold fs-1 text-center mb-2 text-primary">PROJECTS</h2>
-     <div class="header-line mx-auto mb-5"></div>
+<section id="projects" class="projects-section py-5 mt-5">
+
+ 
+
+  <div class="container position-relative">
+
+    <!-- Section Header -->
+  <div class="text-center mb-5">
+      <h2 class="fw-bold text-primary">Projects</h2>
+      <div class="header-line mx-auto"></div>
+    </div>
+
     @for (project of projects(); track project.title; let i = $index) {
-      <div #projectRow class="row align-items-center mb-5 project-animate-wrapper" 
-           [ngClass]="{'flex-row-reverse': i % 2 !== 0,'from-left': i % 2 === 0, 'from-right': i % 2 !== 0}">
-        
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <div class="project-img-container shadow-sm">
-            <img [src]="project.image" [alt]="project.title" class="img-fluid rounded-4">
+      <div
+        #projectRow
+        class="project-row project-animate-wrapper"
+        [class.from-left]="i % 2 === 0"
+        [class.from-right]="i % 2 !== 0"
+      >
+        <!-- Step number -->
+        <div class="project-step-number">0{{ i + 1 }}</div>
+
+        <div
+          class="row align-items-center g-0"
+          [class.flex-row-reverse]="i % 2 !== 0"
+        >
+          <!-- ── IMAGE SIDE ── -->
+          <div class="col-lg-6">
+            <div class="project-img-wrapper" [class.img-right]="i % 2 === 0">
+              <div class="project-img-frame">
+                <!-- Glow layer -->
+                <div class="img-glow"></div>
+                <!-- Decorative corner accents -->
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-br"></div>
+                <!-- Image -->
+                <img
+                  [src]="project.image"
+                  [alt]="project.title"
+                  class="project-img"
+                />
+                <!-- Hover overlay -->
+                <div class="img-hover-overlay">
+                  <div class="overlay-links">
+                    <a [href]="project.links.github" target="_blank" class="overlay-btn">
+                      <i class="bi bi-github"></i>
+                      <span>Code</span>
+                    </a>
+                    <a [href]="project.links.live" target="_blank" class="overlay-btn overlay-btn-accent">
+                      <i class="bi bi-arrow-up-right"></i>
+                      <span>Live</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- ── CONTENT SIDE ── -->
+          <div class="col-lg-6">
+            <div
+              class="project-content"
+              [class.content-left]="i % 2 !== 0"
+              [class.content-right]="i % 2 === 0"
+            >
+              <!-- Category + date pill row -->
+              <div
+                class="meta-row"
+                [class.justify-content-end]="i % 2 !== 0"
+              >
+                <span class="meta-category">{{ project.category }}</span>
+                <span class="meta-dot">·</span>
+                <span class="meta-date">{{ project.date }}</span>
+              </div>
+
+              <!-- Title -->
+              <h3
+                class="project-title"
+                [class.text-end]="i % 2 !== 0"
+              >
+                {{ project.title }}
+              </h3>
+
+              <!-- Divider line -->
+              <div
+                class="content-divider"
+                [class.ms-auto]="i % 2 !== 0"
+              ></div>
+
+              <!-- Description -->
+              <p
+                class="project-description"
+                [class.text-end]="i % 2 !== 0"
+              >
+                {{ project.description }}
+              </p>
+
+              <!-- Tech tags -->
+              <div
+                class="tech-tags"
+                [class.justify-content-end]="i % 2 !== 0"
+              >
+                @for (tag of project.tags; track tag) {
+                  <span class="tech-tag">{{ tag }}</span>
+                }
+              </div>
+
+              <!-- Links -->
+              <div
+                class="project-links-row"
+                [class.justify-content-end]="i % 2 !== 0"
+              >
+                <a [href]="project.links.github" target="_blank" class="proj-link-btn proj-link-btn--primary">
+                  <i class="bi bi-github"></i>
+                  <span>Source</span>
+                </a>
+                <a [href]="project.links.live" target="_blank" class="proj-link-btn proj-link-btn--primary">
+                  <i class="bi bi-arrow-up-right-square"></i>
+                  <span>Live Demo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="col-lg-6 px-lg-5" [ngClass]="{'text-end': i % 2 !== 0}">
-          <h2 class="fw-bold mb-0 ">{{ project.title }}</h2>
-          <p class=" text-primary fw-medium mb-1">{{ project.category }}</p>
-          <p class="small mb-3">{{ project.date }}</p>
-          
-          <p class=" description-text mb-4">
-            {{ project.description }}
-          </p>
-
-          <div class="d-flex gap-3" [ngClass]="{'justify-content-end': i % 2 !== 0}">
-            <a [href]="project.links.github" class="project-link"><i class="bi bi-github"></i></a>
-            <a [href]="project.links.live" class="project-link"><i class="bi bi-link-45deg"></i></a>
-            
-          </div>
-        </div>
-
+        <!-- Row separator -->
+        @if (i < projects().length - 1) {
+          <div class="row-separator"></div>
+        }
       </div>
     }
+
   </div>
 </section>
